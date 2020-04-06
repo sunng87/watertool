@@ -1,0 +1,14 @@
+{:mvn/repos
+ {
+ 	"vendredi" {:url "https://repository.hellonico.info/repository/hellonico/"}
+ }
+ :deps { 
+ 	origami {:mvn/version "4.2.0-1"}
+
+ 	; uncomment to use only the binary for your platform
+ 	; origami {:mvn/version "4.0.0-1" :exclusions [opencv/opencv-native]}
+ 	; opencv/opencv-native$osx_64 {:mvn/version "4.0.0-0"}
+ 	; opencv/opencv-native$linux_64 {:mvn/version "4.0.0-0"}
+ 	; opencv/opencv-native$windows_64 {:mvn/version "4.0.0-0"}
+ }
+}
