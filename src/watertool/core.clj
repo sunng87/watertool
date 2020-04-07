@@ -2,6 +2,9 @@
   (:require [opencv4.core :refer :all :as cv]
             [opencv4.utils :as cvu]))
 
+(def continuous-filter
+  (cvu/matrix-to-mat [[-1 -1 1] [-1 0 1] [-1 1 1]]))
+
 (defn annotate![image text color]
   (let[cl (clone image)]
     (put-text cl text (new-point 50 100) FONT_HERSHEY_PLAIN 4 color 1)
@@ -12,13 +15,13 @@
   (let [pre (-> img
                 clone
                 (cvt-color! COLOR_BGR2GRAY)
-                (blur! (new-size 3 3))
+                (filter-2-d! 3 continuous-filter)
                 (bitwise-not!)
-                (threshold! 80 255 THRESH_BINARY))
+                )
         work
         (-> pre
             clone
-
+            (threshold! 80 255 THRESH_BINARY)
             (canny! 300.0 100.0 3 true))
         contours (new-arraylist)
         drawing (new-mat (.rows img) (.cols img)  CV_8UC3 (new-scalar 255 255 255))
